@@ -18,6 +18,14 @@ m_iDefaultFOV = (0x332C)
 antivac = "f4we03qlwp5q3q45q5890wu4892h59ut)ZQ$/Z§W784zw0682732z57890Z/Z/(§$%Z=!""§(%/08($12\n"
 print( antivac )
 
+# Config Settings ( 1 = true and 0 = false )
+
+radar = 1
+glow = 1
+bhop = 1
+noflash = 1
+fov = 1
+
 def main():
     print("Cobalt has launched.")
     pm = pymem.Pymem("csgo.exe")
@@ -28,13 +36,15 @@ def main():
         local_player = pm.read_int(client + dwLocalPlayer)
 
         if local_player:
-            local_flash_alpha = (local_player + m_flFlashMaxAlpha)
-            pm.write_int(local_flash_alpha, 0)
-            
-            local_fov = (local_player + m_iDefaultFOV)
-            pm.write_int(local_fov, 120)
+            if noflash:
+                local_flash_alpha = (local_player + m_flFlashMaxAlpha)
+                pm.write_int(local_flash_alpha, 0)
 
-        if keyboard.is_pressed("space") and local_player:
+            if fov:
+                local_fov = (local_player + m_iDefaultFOV)
+                pm.write_int(local_fov, 90) # Change to whatever FOV you want (Default CSGO fov is 90)
+
+        if keyboard.is_pressed("space") and local_player and bhop:
             local_flags = pm.read_int(local_player + m_fFlags)
             local_fjump = (client + dwForceJump)
             if local_flags and local_flags == 257:
@@ -46,22 +56,24 @@ def main():
             if entity:
                 entity_team_id = pm.read_int(entity + m_iTeamNum)
                 entity_glow = pm.read_int(entity + m_iGlowIndex)
-                pm.write_int( entity + m_bSpotted, 1 )
 
-                if entity_team_id == 2:  # Terrorist
+                if radar:
+                    pm.write_int( entity + m_bSpotted, 1 )
+                
+                if entity_team_id == 2 and glow:  # Terrorist
                     pm.write_float(glow_manager + entity_glow * 0x38 + 0x4, float(1))   # R
                     pm.write_float(glow_manager + entity_glow * 0x38 + 0x8, float(0))   # G
                     pm.write_float(glow_manager + entity_glow * 0x38 + 0xC, float(0))   # B
                     pm.write_float(glow_manager + entity_glow * 0x38 + 0x10, float(1))  # Alpha
                     pm.write_int(glow_manager + entity_glow * 0x38 + 0x24, 1)           # Enable glow
 
-                elif entity_team_id == 3:  # Counter-terrorist
+                elif entity_team_id == 3 and glow:  # Counter-terrorist
                     pm.write_float(glow_manager + entity_glow * 0x38 + 0x4, float(0))   # R
                     pm.write_float(glow_manager + entity_glow * 0x38 + 0x8, float(0))   # G
                     pm.write_float(glow_manager + entity_glow * 0x38 + 0xC, float(1))   # B
                     pm.write_float(glow_manager + entity_glow * 0x38 + 0x10, float(1))  # Alpha
                     pm.write_int(glow_manager + entity_glow * 0x38 + 0x24, 1)           # Enable glow
-
+                    
 
 if __name__ == '__main__':
     main()
