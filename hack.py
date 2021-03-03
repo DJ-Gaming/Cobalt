@@ -14,10 +14,6 @@ dwForceJump = (0x524CE84)
 m_bSpotted = (0x93D)
 m_iDefaultFOV = (0x332C)
 
-# don't know if this works but :shrug:
-antivac = "f4we03qlwp5q3q45q5890wu4892h59ut)ZQ$/Z§W784zw0682732z57890Z/Z/(§$%Z=!""§(%/08($12\n"
-print( antivac )
-
 # Config Settings ( 1 = true and 0 = false )
 
 radar = 1
