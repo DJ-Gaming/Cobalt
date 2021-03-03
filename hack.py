@@ -12,6 +12,7 @@ dwLocalPlayer = (0xD8B2DC)
 m_fFlags = (0x104)
 dwForceJump = (0x524CE84)
 m_bSpotted = (0x93D)
+m_iDefaultFOV = (0x332C)
 
 # don't know if this works but :shrug:
 antivac = "f4we03qlwp5q3q45q5890wu4892h59ut)ZQ$/Z§W784zw0682732z57890Z/Z/(§$%Z=!""§(%/08($12\n"
@@ -29,6 +30,9 @@ def main():
         if local_player:
             local_flash_alpha = (local_player + m_flFlashMaxAlpha)
             pm.write_int(local_flash_alpha, 0)
+            
+            local_fov = (local_player + m_iDefaultFOV)
+            pm.write_int(local_fov, 120)
 
         if keyboard.is_pressed("space") and local_player:
             local_flags = pm.read_int(local_player + m_fFlags)
