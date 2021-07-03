@@ -3,14 +3,14 @@ import pymem
 import pymem.process
 import keyboard
 
-dwEntityList = (0x4DA2F24)
-dwGlowObjectManager = (0x52EB518)
+dwEntityList = (0x4DA215C)
+dwGlowObjectManager = (0x52EA5D0)
 m_iGlowIndex = (0xA438)
 m_iTeamNum = (0xF4)
 m_flFlashMaxAlpha = (0xA41C)
-dwLocalPlayer = (0xD8B2DC)
+dwLocalPlayer = (0xD892CC)
 m_fFlags = (0x104)
-dwForceJump = (0x524CE84)
+dwForceJump = (0x524BF4C)
 m_bSpotted = (0x93D)
 m_iDefaultFOV = (0x332C)
 
